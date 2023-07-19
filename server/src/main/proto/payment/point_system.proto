@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.anymind.hometest.payment.pointsystem.grpc";
+option java_outer_classname = "PointSystemProto";
+option objc_class_prefix = "HLW";
+
+package payment;
+
+service PointSystem {
+  rpc charge (ChargeRequest) returns (ChargeReply) {}
+  rpc report (ReportRequest) returns (ReportReply) {}
+}
+
+message ChargeRequest {
+  string price = 1;
+  double price_modifier = 2;
+  string payment_method = 3;
+  string datetime = 4;
+}
+
+message ChargeReply {
+  string final_price = 1;
+  double points = 2;
+}
+
+message ChargeHourRecord {
+  string datetime = 1;
+  string sales = 2;
+  double points = 3;
+}
+
+message ReportRequest {
+  string startDateTime = 1;
+  string endDateTime = 2;
+}
+
+message ReportReply {
+  repeated ChargeHourRecord sales = 1;
+}
